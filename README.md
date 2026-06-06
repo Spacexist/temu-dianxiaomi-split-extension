@@ -72,7 +72,7 @@ https://www.dianxiaomi.com/web/productCrawl/productBanjia/popTemu
 2. 点击浏览器右上角「店小秘插件」。
 3. 点击「采集」。
 4. 等待插件读取页面和 hover 弹窗。
-5. 在文本框中查看采集结果。
+5. 在结果卡片区查看采集结果。
 6. 点击「复制结果」复制内容。
 
 输出示例：

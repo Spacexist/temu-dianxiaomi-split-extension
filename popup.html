@@ -36,11 +36,11 @@
         </div>
       </section>
 
-      <textarea
-        id="markdownOutput"
-        spellcheck="false"
-        placeholder="采集结果会显示在这里"
-      ></textarea>
+      <section id="resultPreview" class="resultPreview" aria-live="polite">
+        <div class="emptyState">采集结果会显示在这里</div>
+      </section>
+
+      <textarea id="plainTextOutput" class="srOnly" spellcheck="false"></textarea>
 
       <section class="logPanel">
         <div class="logHeader">日志</div>
