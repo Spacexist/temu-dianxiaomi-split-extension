@@ -282,6 +282,10 @@
     ];
   }
 
+  function isAutoDiscardText(text) {
+    return /\d+\s*天后自动废弃|天后自动废弃|自动废弃/.test(singleLine(text));
+  }
+
   async function readRowSuggestion(row, options = {}) {
     const includeDebugSummary = Boolean(options.includeDebugSummary);
     const logs = [];
@@ -332,16 +336,6 @@
   }
 
   async function collectRow(row) {
-    const rowText = textOf(row);
-    if (/自动废弃|天后自动废弃/.test(rowText)) {
-      const result = await readRowSuggestion(row, { includeDebugSummary: true });
-      const skippedSkc = extractSkc(rowText) || "未知 SKC";
-      return {
-        item: null,
-        logs: [`跳过自动废弃商品：${skippedSkc}`, ...(result?.logs || [])]
-      };
-    }
-
     return readRowSuggestion(row);
   }
 
@@ -352,6 +346,13 @@
     logs.push(`找到候选商品行：${rows.length}`);
 
     for (const row of rows) {
+      const rowText = textOf(row);
+      if (isAutoDiscardText(rowText)) {
+        const stoppedSkc = extractSkc(rowText) || "未知 SKC";
+        logs.push(`遇到自动废弃标记，停止采集：${stoppedSkc}`);
+        break;
+      }
+
       const result = await collectRow(row);
       if (result?.logs?.length) logs.push(...result.logs);
       if (result?.item) items.push(result.item);
