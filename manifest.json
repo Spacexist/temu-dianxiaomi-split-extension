@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "店小秘插件",
+  "description": "采集商品分类修正建议，并支持店小秘数据搬家列表按数量自动选择。",
+  "version": "1.0.0",
+  "permissions": ["activeTab", "scripting", "clipboardWrite"],
+  "host_permissions": ["<all_urls>"],
+  "icons": {
+    "16": "icons/avatar.svg",
+    "32": "icons/avatar.svg",
+    "48": "icons/avatar.svg",
+    "128": "icons/avatar.svg"
+  },
+  "action": {
+    "default_title": "店小秘插件",
+    "default_icon": {
+      "16": "icons/avatar.svg",
+      "32": "icons/avatar.svg",
+      "48": "icons/avatar.svg",
+      "128": "icons/avatar.svg"
+    },
+    "default_popup": "popup.html"
+  }
+}

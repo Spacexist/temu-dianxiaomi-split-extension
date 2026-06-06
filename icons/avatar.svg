@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="云启工具">
+  <defs>
+    <linearGradient id="bg" x1="20" y1="12" x2="108" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0969da"/>
+      <stop offset="0.56" stop-color="#1a7f37"/>
+      <stop offset="1" stop-color="#0b3a75"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="28" y1="22" x2="92" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.36"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="url(#bg)"/>
+  <path d="M29 20h48c17 0 31 14 31 31v48c0 5-4 9-9 9H51c-17 0-31-14-31-31V29c0-5 4-9 9-9Z" fill="url(#shine)"/>
+  <path d="M33 39h26c5 0 9 4 9 9v5h-8v-3c0-2-2-4-4-4H33v-7Zm0 21h47c5 0 9 4 9 9v20H76V74c0-4-3-7-7-7H33v-7Zm0 28h31v8H33v-8Z" fill="#fff"/>
+  <path d="M78 37h17v17h-8v-7h-9V37Zm17 51v17H78v-10h9v-7h8Z" fill="#fff" opacity="0.92"/>
+</svg>

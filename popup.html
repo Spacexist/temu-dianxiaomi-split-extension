@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>店小秘插件</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <img class="avatar" src="icons/avatar.svg" alt="" />
+        <div>
+          <h1>店小秘插件</h1>
+          <p id="statusText">分类建议采集 / 店小秘按数量选择</p>
+        </div>
+      </header>
+
+      <section class="toolbar">
+        <button id="collectBtn" type="button">采集</button>
+        <button id="copyBtn" type="button" disabled>复制 Markdown</button>
+      </section>
+
+      <section class="selectTool" aria-label="店小秘批量选择">
+        <label for="selectCountInput">店小秘选择数量</label>
+        <div class="selectControls">
+          <input
+            id="selectCountInput"
+            type="number"
+            min="1"
+            step="1"
+            value="100"
+            inputmode="numeric"
+          />
+          <button id="selectCountBtn" type="button">按数量选择</button>
+        </div>
+      </section>
+
+      <textarea
+        id="markdownOutput"
+        spellcheck="false"
+        placeholder="采集结果会显示在这里"
+      ></textarea>
+
+      <section class="logPanel">
+        <div class="logHeader">日志</div>
+        <pre id="logOutput">暂无日志</pre>
+      </section>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
