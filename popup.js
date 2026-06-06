@@ -6,7 +6,7 @@ const statusText = document.getElementById("statusText");
 const markdownOutput = document.getElementById("markdownOutput");
 const logOutput = document.getElementById("logOutput");
 
-let latestMarkdown = "";
+let latestOutput = "";
 
 function setStatus(text) {
   statusText.textContent = text;
@@ -24,35 +24,35 @@ function renderLogs(logs) {
   logOutput.textContent = lines.join("\n");
 }
 
-function escapeMarkdown(text) {
+function cleanOutputText(text) {
   return String(text || "")
     .replace(/\r?\n+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-function buildMarkdown(items) {
+function buildOutputText(items) {
   if (!items.length) {
-    return "## 商品分类修正建议\n\n全部 SKC：\n\n未采集到带有“商品分类错误待修正”的商品。";
+    return "商品分类修正建议\n\n全部 SKC：\n\n未采集到带有“商品分类错误待修正”的商品。";
   }
 
-  const skcList = items.map((item) => escapeMarkdown(item.skc)).filter(Boolean).join(",");
+  const skcList = items.map((item) => cleanOutputText(item.skc)).filter(Boolean).join(",");
 
   const blocks = items.map((item, index) => {
     const suggestions = [item.suggestion1, item.suggestion2, item.suggestion3]
-      .map((text, suggestionIndex) => `  ${suggestionIndex + 1}. ${escapeMarkdown(text) || "-"}`)
+      .map((text, suggestionIndex) => `${suggestionIndex + 1}. ${cleanOutputText(text) || "-"}`)
       .join("\n");
 
     return [
-      `### ${index + 1}. ${escapeMarkdown(item.listing) || "未识别商品标题"}`,
-      `- SKC：${escapeMarkdown(item.skc) || "-"}`,
-      `- 原先错误类目：${escapeMarkdown(item.originalCategory) || "-"}`,
-      "- 修改建议：",
+      `${index + 1}. ${cleanOutputText(item.listing) || "未识别商品标题"}`,
+      `SKC：${cleanOutputText(item.skc) || "-"}`,
+      `原先错误类目：${cleanOutputText(item.originalCategory) || "-"}`,
+      "修改建议：",
       suggestions
     ].join("\n");
   });
 
-  return ["## 商品分类修正建议", "", `全部 SKC：${skcList}`, "", ...blocks].join("\n\n");
+  return ["商品分类修正建议", "", `全部 SKC：${skcList}`, "", ...blocks].join("\n\n");
 }
 
 async function getActiveTab() {
@@ -95,16 +95,16 @@ collectBtn.addEventListener("click", async () => {
   copyBtn.disabled = true;
   markdownOutput.value = "";
   renderLogs(["开始采集..."]);
-  latestMarkdown = "";
+  latestOutput = "";
   setStatus("正在读取当前页面...");
 
   try {
     const response = await collectFromPage();
     const items = Array.isArray(response?.items) ? response.items : [];
     renderLogs(response?.logs);
-    latestMarkdown = buildMarkdown(items);
-    markdownOutput.value = latestMarkdown;
-    copyBtn.disabled = !latestMarkdown;
+    latestOutput = buildOutputText(items);
+    markdownOutput.value = latestOutput;
+    copyBtn.disabled = !latestOutput;
     setStatus(`采集完成：${items.length} 条`);
   } catch (error) {
     const message = error?.message || String(error);
@@ -117,16 +117,16 @@ collectBtn.addEventListener("click", async () => {
 });
 
 copyBtn.addEventListener("click", async () => {
-  if (!latestMarkdown) return;
+  if (!latestOutput) return;
 
   try {
-    await navigator.clipboard.writeText(latestMarkdown);
-    setStatus("Markdown 已复制");
+    await navigator.clipboard.writeText(latestOutput);
+    setStatus("结果已复制");
   } catch (error) {
     markdownOutput.focus();
     markdownOutput.select();
     document.execCommand("copy");
-    setStatus("Markdown 已复制");
+    setStatus("结果已复制");
   }
 });
 
